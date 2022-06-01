@@ -46,11 +46,11 @@ spec:
     {{- end }}
           env:
             - name: HOST
-              value: "{{ required "database.host is a required value." .Values.database.host }}"
+              value: {{ required "database.host is a required value." .Values.database.host }}
             - name: USER
-              value: "{{ required "database.user is a required value." .Values.database.user }}"
+              value: {{ required "database.user is a required value." .Values.database.user }}
             - name: PORT
-              value: {{ .Values.database.port | default "5432" }}
+              value: {{ .Values.database.port | default 5432 }}
 
           envFrom:
             - secretRef:
@@ -90,5 +90,5 @@ spec:
     {{- if .Values.odoo.config }}
         - name: config
           configMap:
-            name: {{ if .Values.odoo.config }}
+            name: {{ .Values.odoo.config }}
     {{- end }}
