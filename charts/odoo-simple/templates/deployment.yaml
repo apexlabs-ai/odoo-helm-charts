@@ -34,7 +34,7 @@ spec:
             - /entrypoint.sh
             - "--"
             - "-d"
-            - "wwnet-odoo13"
+            - {{ .Values.database.name }}
           volumeMounts:
             - name: data
               mountPath: /var/lib/odoo
