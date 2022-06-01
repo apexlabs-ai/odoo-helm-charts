@@ -38,6 +38,19 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/lib/odoo
+    {{- if .Values.odooConfig }}
+            - name: config
+              mountPath: /etc/odoo.conf
+              subPath: odoo.conf
+    {{- end }}
+          env:
+            - name: HOST
+              value: "{{ required "database.host is a required value." .Values.database.host }}"
+            - name: USER
+              value: "{{ required "database.user is a required value." .Values.database.user }}"
+            - name: PORT
+              value: {{ .Values.database.port | default "5432" }}
+
           envFrom:
             - secretRef:
                 name: {{ include "odoo-simple.fullname" . }}
@@ -73,4 +86,9 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim | default (include "odoo-simple.fullname" .) }}
-
+    {{- if .Values.odooConfig }}
+        - name: config
+          configMap:
+            name: {{ if .Values.odooConfig }}
+    {{- end }}
+  

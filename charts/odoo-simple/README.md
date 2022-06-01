@@ -1,0 +1,1 @@
+This chart is meant to run the original odoo docker image.

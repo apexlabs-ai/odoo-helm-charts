@@ -10,15 +10,6 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: true
-  # Annotations to add to the service account
-  annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
-
 podAnnotations: {}
 
 podSecurityContext:
@@ -58,9 +49,13 @@ persistence: {}
 #  existingClaim: ..
 
 database: {}
-#  password: ..
+# password: ..
+# user: ..
+# host: ..
+# port: ..
 
+# Any extra environment variables you would like to pass to Odoo
 environmentVariables: {}
-#  HOST: ..
-#  USER: ..
 
+# Name of configMap to mount at /etc/odoo/odoo.conf if any
+odooConfig: ""
