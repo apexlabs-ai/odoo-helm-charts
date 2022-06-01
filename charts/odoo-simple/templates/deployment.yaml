@@ -50,7 +50,7 @@ spec:
             - name: USER
               value: {{ required "database.user is a required value." .Values.database.user }}
             - name: PORT
-              value: {{ .Values.database.port | default 5432 }}
+              value: "{{ .Values.database.port | default 5432 }}"
 
           envFrom:
             - secretRef:
