@@ -91,4 +91,3 @@ spec:
           configMap:
             name: {{ if .Values.odooConfig }}
     {{- end }}
-  
