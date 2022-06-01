@@ -58,4 +58,6 @@ database: {}
 environmentVariables: {}
 
 # Name of configMap to mount at /etc/odoo/odoo.conf if any
-odooConfig: ""
+odoo:
+ command: []
+ config: ""

@@ -30,17 +30,18 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+    {{- if .Values.odoo.command }}
+    {{- with .Values.imagePullSecrets }}
           command:
-            - /entrypoint.sh
-            - "--"
-            - "-d"
-            - {{ .Values.database.name }}
+            {{- toYaml . | nindent 12 }}
+    {{- end }}
+    {{- end }}
           volumeMounts:
             - name: data
               mountPath: /var/lib/odoo
-    {{- if .Values.odooConfig }}
+    {{- if .Values.odoo.config }}
             - name: config
-              mountPath: /etc/odoo.conf
+              mountPath: /etc/odoo/odoo.conf
               subPath: odoo.conf
     {{- end }}
           env:
@@ -86,8 +87,8 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim | default (include "odoo-simple.fullname" .) }}
-    {{- if .Values.odooConfig }}
+    {{- if .Values.odoo.config }}
         - name: config
           configMap:
-            name: {{ if .Values.odooConfig }}
+            name: {{ if .Values.odoo.config }}
     {{- end }}
