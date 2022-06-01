@@ -3,6 +3,16 @@ entries:
   odoo-simple:
   - apiVersion: v2
     appVersion: 13.0.0.0
+    created: "2022-06-01T08:51:18.472008833Z"
+    description: A Helm chart for Kubernetes
+    digest: ca36cbb845a7dfaab78af4034c101359e0c7bdc72578c05cd49f91396bb2d144
+    name: odoo-simple
+    type: application
+    urls:
+    - https://github.com/apexlabs-ai/odoo-helm-charts/releases/download/odoo-simple-0.1.4/odoo-simple-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
+    appVersion: 13.0.0.0
     created: "2022-06-01T08:47:41.871079489Z"
     description: A Helm chart for Kubernetes
     digest: 404b497c61a7d9bf8e35b651639a8276d498fb89e00d2839da7b65edeb6bca7f
