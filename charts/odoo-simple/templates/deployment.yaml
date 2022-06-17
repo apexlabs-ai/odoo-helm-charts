@@ -63,18 +63,18 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /web
+              path: /web/database/manager
               port: http
             initialDelaySeconds: 30
             periodSeconds: 30
-            timeoutSeconds: 3
+            timeoutSeconds: 5
           readinessProbe:
             httpGet:
-              path: /web
+              path: /web/database/manager
               port: http
             initialDelaySeconds: 30
             periodSeconds: 30
-            timeoutSeconds: 3
+            timeoutSeconds: 5
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
