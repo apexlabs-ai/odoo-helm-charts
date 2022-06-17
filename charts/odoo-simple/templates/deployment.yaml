@@ -24,6 +24,18 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- if .Values.odoo.addonsImage }}
+      initContainers:
+        - name: init
+          image: "{{ .Values.odoo.addonsImage }}"
+          command:
+            - sh
+            - "-c"
+            - "cp -R /mnt/extra-addons/* /mnt/extra-addons/.??* /mnt/dest-addons/"
+          volumeMounts:
+            - mountPath: /mnt/dest-addons
+              name: addons
+      {{- end }}
       containers:
         - name: {{ template "odoo-simple.fullname" . }}
           securityContext:
@@ -37,6 +49,10 @@ spec:
     {{- end }}
     {{- end }}
           volumeMounts:
+            {{- if .Values.odoo.addonsImage }}
+            - name: addons
+              mountPath: /mnt/extra-addons
+            {{- end }}
             - name: data
               mountPath: /var/lib/odoo
     {{- if .Values.odoo.config }}
@@ -90,6 +106,8 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
+        - name: addons
+          emptyDir: {}
         - name: data
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim | default (include "odoo-simple.fullname" .) }}
